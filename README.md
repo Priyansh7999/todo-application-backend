@@ -26,11 +26,19 @@ A **clean MVC RESTful API** for Task Management built with **Node.js and Express
 
 ## Folder Structure
 ```code
-├── model/           # Domain models / entities (Task class)
-├── repositories/    # Data access functions (CRUD logic)
-├── services/        # Business logic (stateless, pure functions)
-├── controller/      # HTTP controllers (thin layer)
-├── routes/          # Express route definitions
-├── app.js           # Express app setup
-└── server.js        # Server entry point
+src/
+ ├── controllers/
+ │    └── task.controller.js
+ ├── services/
+ │    └── task.service.js
+ ├── models/
+ │    └── task.model.js
+ ├── routes/
+ │    └── task.routes.js
+ ├── middlewares/
+ │    └── validateTask.middleware.js
+ ├── utils/
+ │    └── uuid.js
+ ├── app.js
+ └── server.js
 ```
