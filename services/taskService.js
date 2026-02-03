@@ -19,12 +19,9 @@ const createTask = ({ title, description, priority }) => {
   return repo.saveTask(task);
 };
 
-// List All Tasks Filterablew by status or priority.
+// List All Tasks 
 const getTasks = (filters) =>
-  repo.findTasksAll().filter(t =>
-    (!filters.status || t.status === filters.status) &&
-    (!filters.priority || t.priority === filters.priority)
-  );
+  repo.findTasksAll()
 
 
 //Get Single Task Retrieve details by ID;
