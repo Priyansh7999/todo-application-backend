@@ -1,4 +1,4 @@
-const tasks = Map();
+const tasks = new Map();
 
 const saveTask = (task) =>{
     tasks.set(task.id,task);
