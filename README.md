@@ -17,3 +17,24 @@ List All Tasks: Filterable by status or priority.
 Get Single Task: Retrieve details by ID; handle "Not Found" scenarios gracefully.
 Update Task: Partially update fields (e.g., just changing the status).
 Delete Task: Remove a task and return an appropriate status code.
+
+# ToDo Backend Application
+
+A **clean MVC RESTful API** for Task Management built with **Node.js and Express**.  
+
+---
+
+## Folder Structure
+```code
+src/
+├── model/           # Domain models / entities (Task class)
+├── repositories/    # Data access functions (CRUD logic)
+├── services/        # Business logic (stateless, pure functions)
+├── controller/      # HTTP controllers (thin layer)
+├── routes/          # Express route definitions
+├── middlewares/     # Validation & error handling
+│   ├── task.validation.js
+│   └── error.middleware.js
+├── app.js           # Express app setup
+└── server.js        # Server entry point
+```
