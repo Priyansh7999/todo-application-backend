@@ -7,6 +7,8 @@ const saveTask = (task) =>{
 const findTaskById = (id)=>{
     return tasks.get(id);
 }
+const findTasksAll = () => Array.from(tasks.values());
+
 const removeTask = (id) => {
     tasks.delete(id);
 }
@@ -18,5 +20,6 @@ module.exports = {
     saveTask,
     findTaskById,
     removeTask,
-    existsByTitle
+    existsByTitle,
+    findTasksAll
 }
