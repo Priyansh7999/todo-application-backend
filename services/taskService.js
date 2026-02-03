@@ -41,6 +41,7 @@ const updateTask = (id, fields) => {
   return repo.saveTask(task);
 };
 
+// Delete Task by ID
 const deleteTask = (id) => {
   getTaskById(id);
   repo.removeTask(id);
