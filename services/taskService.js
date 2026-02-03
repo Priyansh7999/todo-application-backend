@@ -1,5 +1,5 @@
 const { v4: uuid } = require("uuid");
-const Task = require("../domain/task.js");
+const Task = require("../models/task.model.js");
 const repo = require("../repositories/taskRepository.js");
 
 //Create Task
@@ -43,7 +43,8 @@ const updateTask = (id, fields) => {
 
 // Delete Task by ID
 const deleteTask = (id) => {
-  getTaskById(id);
+  const task = repo.findTaskById(id);
+  if (!task) throw new Error("Task not found");
   repo.removeTask(id);
 };
 
