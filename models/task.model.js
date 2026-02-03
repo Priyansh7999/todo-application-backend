@@ -5,13 +5,13 @@ class Task {
     this.description = description;
     this.status = status;
     this.priority = priority;
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
+    this.createdAt = new Date().toLocaleTimeString();
+    this.updatedAt = new Date().toLocaleTimeString();
   }
 
   update(fields) {
     Object.assign(this, fields);
-    this.updatedAt = new Date();
+    this.updatedAt = new Date().toLocaleTimeString();
   }
 }
 
