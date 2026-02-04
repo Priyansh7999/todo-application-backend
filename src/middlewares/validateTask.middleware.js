@@ -1,5 +1,5 @@
 function validateTitle(title, res) {
-  if (!title || typeof title !== 'string' || title.length > 100) {
+  if (!title || typeof title !== 'string' || title.trim().length === 0 || title.trim().length > 100) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_TITLE",
@@ -12,7 +12,7 @@ function validateTitle(title, res) {
 }
 
 function validateDescription(description, res) {
-  if (!description || typeof description !== 'string' || description.length > 500) {
+  if (!description || typeof description !== 'string' || description.trim().length === 0 || description.trim().length > 500) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_DESCRIPTION",
