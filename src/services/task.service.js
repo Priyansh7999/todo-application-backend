@@ -35,7 +35,7 @@ class TaskService {
         if (filters.priority) {
             result = result.filter(task => task.priority.toLowerCase() === filters.priority.toLowerCase());
         }
-        if(result.length === 0){
+        if (result.length === 0) {
             return [];
         }
 
@@ -49,7 +49,17 @@ class TaskService {
         }
 
         const existingTask = this.tasks[taskIndex];
+        if (data.title) {
+            const isDuplicate = this.tasks.some(
+                task =>
+                    task.id !== id &&
+                    task.title.toLowerCase() === data.title.toLowerCase()
+            );
 
+            if (isDuplicate) {
+                return "Task with this title already exists";
+            }
+        }
         const noChanges =
             (data.title === undefined || data.title === existingTask.title) &&
             (data.description === undefined || data.description === existingTask.description) &&
@@ -74,10 +84,10 @@ class TaskService {
     }
 
 
-    
-    getTaskById(id){
+
+    getTaskById(id) {
         const task = this.tasks.find(task => task.id === id);
-        if(!task){
+        if (!task) {
             throw new Error("Task not found");
         }
         return task;
