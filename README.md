@@ -14,7 +14,6 @@ The Backend App supports:
 
 - Create Task: Validate input and prevent duplicate titles.
 - List All Tasks: Filterable by status or priority.
-- Update Task: Partially update fields (e.g., just changing the status).
 
 ---
 
@@ -51,21 +50,6 @@ Allows users to get new tasks with or without filter
 - GET /v1/tasks?priority=high
 - GET /v1/tasks?status=pending&priority=medium
 
-### **3. Update Task**
-Allows users to update their tasks partially (any combination of fields).
-**Endpoint**
-- Endpoint: PATCH /v1/tasks/:id
-- Request body
-```json
-{
-  "title": "string (max 100)",
-  "description": "string (max 500)",
-  "status": "pending | in progress | completed",
-  "priority": "low | medium | high"
-}
-```
-- Validates updated fields if provided.
-- Updates updatedAt automatically.
 
 ## Non Functional Requirements
 1. Include URI versioning (/v1/tasks) 
