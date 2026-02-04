@@ -35,7 +35,7 @@ class TaskService {
         if (filters.priority) {
             result = result.filter(task => task.priority.toLowerCase() === filters.priority.toLowerCase());
         }
-        if(result.length === 0){
+        if (result.length === 0) {
             return "No tasks found matching the criteria";
         }
 
@@ -48,15 +48,31 @@ class TaskService {
             throw new Error("Task not found");
         }
 
+        const existingTask = this.tasks[taskIndex];
+
+        const noChanges =
+            (data.title === undefined || data.title === existingTask.title) &&
+            (data.description === undefined || data.description === existingTask.description) &&
+            (data.status === undefined || data.status.toLowerCase() === existingTask.status) &&
+            (data.priority === undefined || data.priority.toLowerCase() === existingTask.priority);
+
+        if (noChanges) {
+            throw new Error("No changes detected to update the task");
+        }
+
         const updatedTask = {
-            ...this.tasks[taskIndex],
-            updatedAt: new Date(),
-            ...data
+            ...existingTask,
+            ...data,
+            status: data.status ? data.status.toLowerCase() : existingTask.status,
+            priority: data.priority ? data.priority.toLowerCase() : existingTask.priority,
+            updatedAt: new Date()
         };
 
         this.tasks[taskIndex] = updatedTask;
+
         return updatedTask;
     }
+
 
 }
 
