@@ -72,27 +72,27 @@ Allows users to get new tasks with or without filter
 ## How to run
 
 1. Clone the repository
-```
+```code
 git clone https://github.com/Priyansh7999/todo-application-backend.git
 ```
 
 2. Navigate to the project directory
-```
+```code
 cd todo-application-backend
 ```
 
 3. Install dependencies
-```
+```code
 npm install
 ```
 
 4. Start the server
-```
+```code
 node src/server.js
 ```
 
 5. The server will start on:
-```
+```code
 http://localhost:3000
 ```
 
