@@ -50,6 +50,12 @@ Allows users to get new tasks with or without filter
 - GET /v1/tasks?priority=high
 - GET /v1/tasks?status=pending&priority=medium
 
+### **4. Get a single task**
+Allows users to get a single task using the task_id
+
+**Endpoint** : GET /v1/tasks/{id} 
+- Return all the deatils of the task.
+- Returns a 404 Not Found status code if the task does not exist.
 
 ## Non Functional Requirements
 1. Include URI versioning (/v1/tasks) 
