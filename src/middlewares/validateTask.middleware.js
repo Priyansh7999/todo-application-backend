@@ -1,35 +1,50 @@
-const validStatus = ["Pending", "In Progress", "Completed"];
-const validPriority = ["Low", "Medium", "High"];
+const validateTask = (req, res, next) => {
+    let { title, description, status, priority } = req.body;
 
-function validateTask(req, res, next) {
-  const { title, description, status, priority } = req.body;
+    if (!title || typeof title !== 'string' || title.length > 100) {
+        return res.status(400).json({
+            error: {
+                code: "INVALID_TASK_TITLE",
+                message: "Title is required and must be a string with a maximum length of 100 characters"
+            }
+        });
+    }
 
- 
+    if (!description || typeof description !== 'string' || description.length > 500) {
+        return res.status(400).json({
+            error: {
+                code: "INVALID_TASK_DESCRIPTION",
+                message: "Description is required and must be a string with a maximum length of 500 characters"
+            }
+        });
+    }
 
-  
-//   if (!title || title.trim().length === 0) {  // Auto-generate title if empty or spaces would love to implement in future
-//     title = description.trim().substring(0, 3);
-//     req.body.title = title;
-//   }
+    if (!status) {
+        req.body.status = 'pending';
+    } else if (!['pending', 'in progress', 'completed'].includes(status.toLowerCase())) {
+        return res.status(400).json({
+            error: {
+                code: "INVALID_TASK_STATUS",
+                message: "Status must be either 'pending', 'in progress', or 'completed'"
+            }
+        });
+    } else {
+        req.body.status = status.toLowerCase();
+    }
 
-  if ( title.length > 100) {
-    return res.status(400).json({ message: "Invalid title (must be 100 characters or less)" });
-  }
-
-
-  if (!description || description.length > 500) {
-    return res.status(400).json({ message: "description should be within 500 words" });
-  }
-
-  if (!validStatus.includes(status)) {
-    return res.status(400).json({ message: "Invalid status" });
-  }
-
-  if (!validPriority.includes(priority)) {
-    return res.status(400).json({ message: "Invalid priority" });
-  }
-
-  next(); // move ahead after all validations pass
-}
+    if (!priority) {
+        req.body.priority = 'low';
+    } else if (!['low', 'medium', 'high'].includes(priority.toLowerCase())) {
+        return res.status(400).json({
+            error: {
+                code: "INVALID_TASK_PRIORITY",
+                message: "Priority must be either 'low', 'medium', or 'high'"
+            }
+        });
+    } else {
+        req.body.priority = priority.toLowerCase();
+    }
+    next();
+};
 
 module.exports = validateTask;
