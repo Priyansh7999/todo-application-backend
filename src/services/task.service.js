@@ -57,7 +57,7 @@ class TaskService {
             (data.priority === undefined || data.priority.toLowerCase() === existingTask.priority);
 
         if (noChanges) {
-            throw new Error("No changes detected to update the task");
+            return "No changes made to the task";
         }
 
         const updatedTask = {
