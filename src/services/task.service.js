@@ -9,7 +9,7 @@ class TaskService {
 
     createTask(data) {
         const isDuplicate = this.tasks.some(
-            task => task.title === data.title
+            task => task.title.toLowerCase() === data.title.toLowerCase()
         );
 
         if (isDuplicate) {
