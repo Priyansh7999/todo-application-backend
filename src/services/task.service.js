@@ -41,6 +41,21 @@ class TaskService {
 
         return result;
     }
+    updateTask(id, data) {
+        const taskIndex = this.tasks.findIndex(task => task.id === id);
+
+        if (taskIndex === -1) {
+            throw new Error("Task not found");
+        }
+
+        const updatedTask = {
+            ...this.tasks[taskIndex],
+            ...data
+        };
+
+        this.tasks[taskIndex] = updatedTask;
+        return updatedTask;
+    }
 
 }
 
