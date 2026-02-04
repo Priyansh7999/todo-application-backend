@@ -13,6 +13,17 @@ class TaskController {
             res.status(500).json({ message: "Internal server error" });
         }
     }
+
+     getAllTasks(req, res) {
+        try {
+            const { status, priority } = req.query;
+
+            const tasks = taskService.getAllTasks({ status, priority });
+            res.status(200).json(tasks);
+        } catch (error) {
+            res.status(500).json({ message: "Internal server error" });
+        }
+    }
 }
 
 

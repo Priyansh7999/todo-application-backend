@@ -25,6 +25,20 @@ class TaskService {
         return task;
     }
 
+    getAllTasks(filters = {}) {
+        let result = this.tasks;
+
+        if (filters.status) {
+            result = result.filter(task => task.status === filters.status);
+        }
+
+        if (filters.priority) {
+            result = result.filter(task => task.priority === filters.priority);
+        }
+
+        return result;
+    }
+
 }
 
 module.exports = new TaskService();
