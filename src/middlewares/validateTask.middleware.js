@@ -33,9 +33,18 @@ function validateTask(req, res, next) {
         req.body.status = status.toLowerCase();
     }
 
-  if (!validPriority.includes(priority)) {
-    return res.status(400).json({ message: "Invalid priority" });
-  }
+  if (!priority) {
+        req.body.priority = 'low';
+    } else if (!['low', 'medium', 'high'].includes(priority.toLowerCase())) {
+        return res.status(400).json({
+            error: {
+                code: "INVALID_TASK_PRIORITY",
+                message: "Priority must be either 'low', 'medium', or 'high'"
+            }
+        });
+    } else {
+        req.body.priority = priority.toLowerCase();
+    }
 
   next(); // move ahead after all validations pass
 }
