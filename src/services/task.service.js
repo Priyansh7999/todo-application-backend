@@ -13,7 +13,7 @@ class TaskService {
         );
 
         if (isDuplicate) {
-            throw new Error("TASK_TITLE_EXISTS");
+            throw new Error("Task with this title already exists");
         }
 
         const task = new Task({
@@ -29,11 +29,14 @@ class TaskService {
         let result = this.tasks;
 
         if (filters.status) {
-            result = result.filter(task => task.status === filters.status);
+            result = result.filter(task => task.status.toLowerCase() === filters.status.toLowerCase());
         }
 
         if (filters.priority) {
-            result = result.filter(task => task.priority === filters.priority);
+            result = result.filter(task => task.priority.toLowerCase() === filters.priority.toLowerCase());
+        }
+        if(result.length === 0){
+            return "No tasks found matching the criteria";
         }
 
         return result;

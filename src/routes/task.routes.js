@@ -4,8 +4,8 @@ const router = express.Router();
 const taskController = require("../controllers/task.controller");
 const validateTask = require("../middlewares/validateTask.middleware");
 
-router.post("/tasks", validateTask, taskController.createTask);
- router.get("/tasks", taskController.getAllTasks);
+router.post("/", validateTask, taskController.createTask);
+ router.get("/", taskController.getAllTasks);
 
 
 module.exports = router;
