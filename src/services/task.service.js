@@ -42,6 +42,15 @@ class TaskService {
         return result;
     }
 
+    
+    getTaskById(id){
+        const task = this.tasks.find(task => task.id === id);
+        if(!task){
+            throw new Error("Task not found");
+        }
+        return task;
+    }
+
 }
 
 module.exports = new TaskService();
