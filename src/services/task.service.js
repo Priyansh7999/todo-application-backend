@@ -41,6 +41,38 @@ class TaskService {
 
         return result;
     }
+    updateTask(id, data) {
+        const taskIndex = this.tasks.findIndex(task => task.id === id);
+
+        if (taskIndex === -1) {
+            throw new Error("Task not found");
+        }
+
+        const existingTask = this.tasks[taskIndex];
+
+        const noChanges =
+            (data.title === undefined || data.title === existingTask.title) &&
+            (data.description === undefined || data.description === existingTask.description) &&
+            (data.status === undefined || data.status.toLowerCase() === existingTask.status) &&
+            (data.priority === undefined || data.priority.toLowerCase() === existingTask.priority);
+
+        if (noChanges) {
+            return "No changes made to the task";
+        }
+
+        const updatedTask = {
+            ...existingTask,
+            ...data,
+            status: data.status ? data.status.toLowerCase() : existingTask.status,
+            priority: data.priority ? data.priority.toLowerCase() : existingTask.priority,
+            updatedAt: new Date()
+        };
+
+        this.tasks[taskIndex] = updatedTask;
+
+        return updatedTask;
+    }
+
 
     
     getTaskById(id){
