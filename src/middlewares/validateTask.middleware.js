@@ -10,17 +10,6 @@ function validateTitle(title, res) {
   }
   return true;
 }
-function validateId(id,res){
-  if(id){
-    res.status(400).json({
-      error: {
-        code: "INVALID_TASK_ID",
-        message: "Task ID cannot be provided or updated"
-      }
-    });
-    return false;
-  }
-}
 function validateDescription(description, res) {
   if (!description || typeof description !== 'string' || description.trim().length === 0 || description.trim().length > 500) {
     res.status(400).json({
