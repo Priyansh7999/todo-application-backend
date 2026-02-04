@@ -1,6 +1,3 @@
-const validStatus = ["Pending", "In Progress", "Completed"];
-const validPriority = ["Low", "Medium", "High"];
-
 function validateTask(req, res, next) {
   const { title, description, status, priority } = req.body;
 
@@ -23,9 +20,18 @@ function validateTask(req, res, next) {
         });
     }
 
-  if (!validStatus.includes(status)) {
-    return res.status(400).json({ message: "Invalid status" });
-  }
+  if (!status) {
+        req.body.status = 'pending';
+    } else if (!['pending', 'in progress', 'completed'].includes(status.toLowerCase())) {
+        return res.status(400).json({
+            error: {
+                code: "INVALID_TASK_STATUS",
+                message: "Status must be either 'pending', 'in progress', or 'completed'"
+            }
+        });
+    } else {
+        req.body.status = status.toLowerCase();
+    }
 
   if (!validPriority.includes(priority)) {
     return res.status(400).json({ message: "Invalid priority" });
