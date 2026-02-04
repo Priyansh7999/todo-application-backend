@@ -14,29 +14,15 @@ The Backend App supports:
 
 - Create Task: Validate input and prevent duplicate titles.
 - List All Tasks: Filterable by status or priority.
-
-
-
-
-# ToDo Backend Application
-
-A **clean MVC RESTful API** for Task Management built with **Node.js and Express**.  
+- Update Task: Partially update fields (e.g., just changing the status).
 
 ---
 
-## Folder Structure
-```code
-src/
- ├── app.js
- └── server.js
-```
-
-
 ## Prerequisites
 - Node.js (v18+ recommended)
-- npm
+- Postmen (for testing purpose)
 
-## Feature (Completed)
+## Feature
 ### **1. Create Task**
 Allows users to create new tasks with validation
 - **Endpoint** : POST /v1/tasks 
@@ -55,7 +41,7 @@ Allows users to create new tasks with validation
 - Prevents saving a task if another task with the same title already exists
 
 ### **2. List Tasks**
-Allows users to get new tasks with or woithout filter
+Allows users to get new tasks with or without filter
 - Returns all tasks when no filters are provided.
 - Supports filtering by task status and priority.
 
@@ -66,7 +52,20 @@ Allows users to get new tasks with or woithout filter
 - GET /v1/tasks?status=pending&priority=medium
 
 ### **3. Update Task**
-
+Allows users to update their tasks partially (any combination of fields).
+**Endpoint**
+- Endpoint: PATCH /v1/tasks/:id
+- Request body
+```json
+{
+  "title": "string (max 100)",
+  "description": "string (max 500)",
+  "status": "pending | in progress | completed",
+  "priority": "low | medium | high"
+}
+```
+- Validates updated fields if provided.
+- Updates updatedAt automatically.
 
 ## Non Functional Requirements
 1. Include URI versioning (/v1/tasks) 
