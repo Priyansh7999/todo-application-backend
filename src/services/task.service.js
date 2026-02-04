@@ -50,6 +50,7 @@ class TaskService {
 
         const updatedTask = {
             ...this.tasks[taskIndex],
+            updatedAt: new Date(),
             ...data
         };
 
