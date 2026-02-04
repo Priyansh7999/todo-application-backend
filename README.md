@@ -10,10 +10,9 @@ A status (Pending, In Progress, Completed).
 A priority level (Low, Medium, High).
 Timestamps (Created At, Updated At).
 
-The Backend App support:
+The Backend App supports:
 
-Create Task: Validate input and prevent duplicate titles.
-List All Tasks: Filterable by status or priority.
+
 
 
 # ToDo Backend Application
@@ -38,12 +37,12 @@ src/
 
 1. Clone the repository
 ```
-git clone https://github.com/rakshitsaxena07/todo-application.git
+git clone https://github.com/Priyansh7999/todo-application-backend.git
 ```
 
 2. Navigate to the project directory
 ```
-cd todo-application
+cd todo-application-backend
 ```
 
 3. Install dependencies
