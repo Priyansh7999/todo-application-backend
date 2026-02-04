@@ -12,6 +12,9 @@ Timestamps (Created At, Updated At).
 
 The Backend App supports:
 
+- Create Task: Validate input and prevent duplicate titles.
+- List All Tasks: Filterable by status or priority.
+
 
 
 
