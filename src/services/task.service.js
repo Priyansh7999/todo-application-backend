@@ -36,7 +36,7 @@ class TaskService {
             result = result.filter(task => task.priority.toLowerCase() === filters.priority.toLowerCase());
         }
         if(result.length === 0){
-            return "No tasks found matching the criteria";
+            return [];
         }
 
         return result;
