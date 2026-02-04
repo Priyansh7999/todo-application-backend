@@ -13,7 +13,7 @@ class TaskService {
         );
 
         if (isDuplicate) {
-            throw new Error("TASK_TITLE_EXISTS");
+            throw new Error("Task with this title already exists");
         }
 
         const task = new Task({
