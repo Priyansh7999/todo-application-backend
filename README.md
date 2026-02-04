@@ -1,4 +1,4 @@
-## ToDo Application: (Feel free to choose any language) Only Backend Application
+## ToDo Application: Only Backend Application
 
 Design and implement a robust RESTful API for a Task Management System. The application must be built using the Model-View-Controller (MVC) architectural pattern, where the "View" is represented by JSON responses, No Database. The primary goal is to demonstrate mastery of Object-Oriented Programming (OOP) and Clean Architecture.
 Each task should have:
