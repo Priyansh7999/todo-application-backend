@@ -10,7 +10,17 @@ function validateTitle(title, res) {
   }
   return true;
 }
-
+function validateId(id,res){
+  if(id){
+    res.status(400).json({
+      error: {
+        code: "INVALID_TASK_ID",
+        message: "Task ID cannot be provided or updated"
+      }
+    });
+    return false;
+  }
+}
 function validateDescription(description, res) {
   if (!description || typeof description !== 'string' || description.trim().length === 0 || description.trim().length > 500) {
     res.status(400).json({
@@ -75,8 +85,24 @@ function validateCreateTask(req, res, next) {
   next();
 }
 function validateUpdateTask(req, res, next) {
-  const { title, description, status, priority } = req.body;
-
+  const { id, title, description, status, priority, createdAt, updatedAt } = req.body;
+  if(!id && !title && !description && !status && !priority){
+    res.status(400).json({
+      error: {
+        code: "NO_FIELDS_TO_UPDATE",
+        message: "At least one field must be provided for update"
+      }
+    });
+    return;
+  }
+  if(id || createdAt || updatedAt){
+    return res.status(400).json({
+      error: {
+        code: "INVALID_UPDATE_FIELDS",
+        message: "id, createdAt, and updatedAt cannot be updated"
+      }
+    });
+  }
   if (title !== undefined && !validateTitle(title, res)) return;
   if (description !== undefined && !validateDescription(description, res)) return;
   if (status !== undefined && !validateStatus(status, req, res)) return;
