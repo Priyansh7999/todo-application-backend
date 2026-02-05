@@ -15,7 +15,8 @@ The Backend App supports:
 - Create Task: Validate input and prevent duplicate titles.
 - List All Tasks: Filterable by status or priority.
 - Update Task: Partially update fields (e.g., just changing the status).
-
+- Update Task: Partially update fields (e.g., just changing the status).
+- Delete Task: Remove a task and return an appropriate status code.
 ---
 
 ## Prerequisites
@@ -72,6 +73,17 @@ Allows users to get a single task using the task_id
 **Endpoint** : GET /v1/tasks/{id} 
 - Return all the deatils of the task.
 - Returns a 404 Not Found status code if the task does not exist.
+
+### **5. Delete a Single Task**
+Allows users to delete a task using its task ID.
+
+**Endpoint** : DELETE /v1/tasks/{id}  
+
+- Deletes the task with the specified ID from in-memory storage
+- Returns `200 status code` on successful deletion
+- Returns `404 status code` if no task exists with the given ID
+
+
 
 ## Non Functional Requirements
 1. Include URI versioning (/v1/tasks) 
