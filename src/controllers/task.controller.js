@@ -33,7 +33,7 @@ class TaskController {
     updateTask(req, res) {
         try {
             const task = taskService.updateTask(req.params.id, req.body);
-            res.json(task);
+            res.status(200).json(task);
         } catch (err) {
             res.status(404).json({
                 "error": {
