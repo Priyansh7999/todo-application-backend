@@ -95,6 +95,7 @@ class TaskService {
     /* To delete a task by id
     * @param {string} id - The id of the task to delete
     * @returns {void}
+    * @throws {Error} When the task is not found.
     */
 
     deleteTask(id) {
