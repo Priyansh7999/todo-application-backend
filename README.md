@@ -66,6 +66,12 @@ Allows users to update their tasks partially (any combination of fields).
 ```
 - Validates updated fields if provided.
 - Updates updatedAt automatically.
+### **4. Get a single task**
+Allows users to get a single task using the task_id
+
+**Endpoint** : GET /v1/tasks/{id} 
+- Return all the deatils of the task.
+- Returns a 404 Not Found status code if the task does not exist.
 
 ## Non Functional Requirements
 1. Include URI versioning (/v1/tasks) 

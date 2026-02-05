@@ -44,6 +44,21 @@ class TaskController {
         }
     };
 
+
+    getSingleTask(req, res) {
+        try {
+            const { id } = req.params;
+            const task = taskService.getTaskById(id);
+            res.status(200).json(task);
+        } catch (error) {
+            res.status(404).json({
+                "error": {
+                    "code": "TASK_NOT_FOUND",
+                    "message": error.message
+                }
+            })
+        }   
+    }
 }
 
 
