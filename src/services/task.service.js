@@ -1,11 +1,23 @@
+// src/services/task.service.js
 const Task = require("../models/task.model");
 const { generateUUID } = require("../utils/uuid");
 
+/* Service for managing task
+*
+* @class TaskService
+*/
 
 class TaskService {
     constructor() {
         this.tasks = []; // in memory storage
     }
+
+    /**
+     * Create a new task.
+     * @param {Object} - Task data conatins title, description, status, priority
+     * @returns {Task} - The newly created task
+     * @throws {Error} - Throws error if a task with the same title already exists
+     **/
 
     createTask(data) {
         const isDuplicate = this.tasks.some(
@@ -25,6 +37,12 @@ class TaskService {
         return task;
     }
 
+    /**
+     * Get all tasks with filtered by status or priority
+     * @param {Object}  - Filter options status and priority
+     * @returns {Array} -  Array of tasks matching the filter
+     **/
+
     getAllTasks(filters = {}) {
         let result = this.tasks;
 
@@ -41,6 +59,15 @@ class TaskService {
 
         return result;
     }
+
+    /**
+     * Update an existing task 
+     * @param {string} id - The ID of the task to update
+     * @param {Object} data - Task fields to update like title, description, status, priority
+     * @returns {Object} - Updated task object
+     * @throws {Error} Throws an error if task is not found
+     **/
+    
     updateTask(id, data) {
         const taskIndex = this.tasks.findIndex(task => task.id === id);
 
@@ -83,7 +110,12 @@ class TaskService {
         return updatedTask;
     }
 
-
+    /**
+     * Get a task by id.
+     * @param {string} - ID of the task
+     * @returns {Object} The task object
+     * @throws {Error} Throws an error if task is not found
+     */
 
     getTaskById(id) {
         const task = this.tasks.find(task => task.id === id);
@@ -92,6 +124,7 @@ class TaskService {
         }
         return task;
     }
+
     /* To delete a task by id
     * @param {string} id - The id of the task to delete
     * @returns {void}
