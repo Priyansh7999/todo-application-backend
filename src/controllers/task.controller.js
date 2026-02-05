@@ -1,18 +1,21 @@
 // src/controllers/task.controller.js
 const taskService = require("../services/task.service");
 
-/* Controller for handling task operation
+/* Controller for managing task
 *
 * @class TaskController
 */
+
 class TaskController {
 
-    /* Create a task
+    /**
+    * Create a task
     * @param {object} req - The request object
     * @param {object} res - The response object
     * @returns {void} - Sends JSON response with the created task or error
     * @throws {Error} - Throws an error if the task is not found
-    */
+    **/
+   
     createTask(req, res) {
         try {
             const task = taskService.createTask(req.body);
@@ -27,12 +30,13 @@ class TaskController {
         }
     }
 
-    /* Get all task
+    /** 
+    * Get all task
     * @param {object} req - The request object
     * @param {object} res - The response object
     * @returns {void} - Sends JSON response with list of tasks or error
     * @throws {Error} - Throws an error if the task is not found
-    */
+    **/
 
     getAllTasks(req, res) {
         try {
@@ -50,12 +54,13 @@ class TaskController {
         }
     }
 
-    /* update a task
+    /**
+    * Update a task
     * @param {object} req - The request object
     * @param {object} res - The response object
     * @returns {void}- Sends JSON response with the updated task or error
     * @throws {Error} - Throws an error if the task is not found
-    */
+    **/
 
     updateTask(req, res) {
         try {
@@ -71,12 +76,13 @@ class TaskController {
         }
     };
 
-    /* Get a single task
+    /** 
+    *Get a single task
     * @param {object} req - The request object
     * @param {object} res - The response object
     * @returns {void} -Sends JSON response with the task or error
     * @throws {Error} - Throws an error if the task is not found
-    */
+    **/
 
     getSingleTask(req, res) {
         try {
@@ -93,12 +99,13 @@ class TaskController {
         }   
     }
 
-   /* To delete a task 
+   /**
+    * To delete a task 
     * @param {object} req - The request object
     * @param {object} res - The response object
     * @returns {object} - The response object with success message or error message
     * @throws {Error} - Throws an error if the task is not found
-    */
+    **/
 
     deleteTask(req, res) {
         try {
