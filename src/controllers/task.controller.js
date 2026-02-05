@@ -33,7 +33,7 @@ class TaskController {
     updateTask(req, res) {
         try {
             const task = taskService.updateTask(req.params.id, req.body);
-            res.json(task);
+            res.status(200).json(task);
         } catch (err) {
             res.status(404).json({
                 "error": {
@@ -58,6 +58,31 @@ class TaskController {
                 }
             })
         }   
+    }
+
+   /* To delete a task 
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @returns {object} - The response object with success message or error message
+    * @throws {Error} - Throws an error if the task is not found
+    */
+
+    deleteTask(req, res) {
+        try {
+            const { id } = req.params;
+            taskService.deleteTask(id);
+            res.status(200).json({
+                "success": true,
+                "message": "Task deleted successfully"
+            });
+        } catch (error) {
+            res.status(404).json({
+                "error": {
+                    "code": "TASK_NOT_FOUND",
+                    "message": error.message
+                }
+            })
+        }
     }
 }
 
