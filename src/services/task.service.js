@@ -92,6 +92,20 @@ class TaskService {
         }
         return task;
     }
+    /* To delete a task by id
+    * @param {string} id - The id of the task to delete
+    * @returns {void}
+    */
+
+    deleteTask(id) {
+        const initialLength = this.tasks.length;
+        this.tasks = this.tasks.filter(task => task.id !== id);
+
+        if (this.tasks.length === initialLength) {
+            throw new Error("Task not found");
+        }
+    }
+
 
 }
 
