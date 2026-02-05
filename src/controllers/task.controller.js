@@ -59,6 +59,27 @@ class TaskController {
             })
         }   
     }
+
+   /* To delete a task 
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @return
+    */
+
+    deleteTask(req, res) {
+        try {
+            const { id } = req.params;
+            taskService.deleteTask(id);
+            res.status(204).json("Task deleted successfully");
+        } catch (error) {
+            res.status(404).json({
+                "error": {
+                    "code": "TASK_NOT_FOUND",
+                    "message": error.message
+                }
+            })
+        }
+    }
 }
 
 
