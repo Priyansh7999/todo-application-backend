@@ -15,7 +15,6 @@ The Backend App supports:
 - Create Task: Validate input and prevent duplicate titles.
 - List All Tasks: Filterable by status or priority.
 - Update Task: Partially update fields (e.g., just changing the status).
-- Update Task: Partially update fields (e.g., just changing the status).
 - Delete Task: Remove a task and return an appropriate status code.
 ---
 
