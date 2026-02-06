@@ -3,19 +3,20 @@ function validateTitle(title, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_TITLE",
-        message: "Title is required and max 100 characters"
+        message: "Title is required and must be under 100 characters"
       }
     });
     return false;
   }
   return true;
 }
+
 function validateDescription(description, res) {
   if (!description || typeof description !== 'string' || description.trim().length === 0 || description.trim().length > 500) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_DESCRIPTION",
-        message: "Description is required and max 500 characters"
+        message: "Description is required and must be under 500 characters"
       }
     });
     return false;
@@ -33,7 +34,7 @@ function validateStatus(status, req, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_STATUS",
-        message: "Invalid status"
+        message: "Invalid status value"
       }
     });
     return false;
@@ -53,7 +54,7 @@ function validatePriority(priority, req, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_PRIORITY",
-        message: "Invalid priority"
+        message: "Invalid priority value"
       }
     });
     return false;
@@ -73,6 +74,7 @@ function validateCreateTask(req, res, next) {
 
   next();
 }
+
 function validateUpdateTask(req, res, next) {
   const { id, title, description, status, priority, createdAt, updatedAt } = req.body;
   if(!id && !title && !description && !status && !priority){
@@ -99,6 +101,7 @@ function validateUpdateTask(req, res, next) {
 
   next();
 }
+
 module.exports = {
   validateCreateTask,
   validateUpdateTask

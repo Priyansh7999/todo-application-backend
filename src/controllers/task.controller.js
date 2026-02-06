@@ -22,7 +22,7 @@ class TaskController {
         } catch (error) {
             res.status(400).json({
                 "error": {
-                    "code": "INVALID_TASK_DATA",
+                    "code": "TASK_CREATE_FAILED",
                     "message": error.message
                 }
             })
@@ -39,13 +39,12 @@ class TaskController {
     getAllTasks(req, res) {
         try {
             const { status, priority } = req.query;
-
             const tasks = taskService.getAllTasks({ status, priority });
             res.status(200).json(tasks);
         } catch (error) {
             res.status(500).json({
                 "error": {
-                    "code": "INTERNAL_SERVER_ERROR",
+                    "code": "TASK_FETCH_FAILED",
                     "message": error.message
                 }
             })
@@ -66,7 +65,7 @@ class TaskController {
         } catch (err) {
             res.status(404).json({
                 "error": {
-                    "code": "TASK_NOT_FOUND",
+                    "code": "TASK_UPDATE_FAILED",
                     "message": err.message
                 }
             })
@@ -82,8 +81,7 @@ class TaskController {
 
     getSingleTask(req, res) {
         try {
-            const { id } = req.params;
-            const task = taskService.getTaskById(id);
+            const task = taskService.getTaskById(req.params.id);
             res.status(200).json(task);
         } catch (error) {
             res.status(404).json({
@@ -104,8 +102,7 @@ class TaskController {
 
     deleteTask(req, res) {
         try {
-            const { id } = req.params;
-            taskService.deleteTask(id);
+            taskService.deleteTask(req.params.id);
             res.status(200).json({
                 "success": true,
                 "message": "Task deleted successfully"
@@ -113,7 +110,7 @@ class TaskController {
         } catch (error) {
             res.status(404).json({
                 "error": {
-                    "code": "TASK_NOT_FOUND",
+                    "code": "TASK_DELETE_FAILED",
                     "message": error.message
                 }
             })
