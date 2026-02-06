@@ -76,12 +76,12 @@ class TaskService {
         if (data.title) {
             const isDuplicate = this.tasks.some(
                 task =>
-                    task.id !== id &&
+                    task.id === id &&
                     task.title.toLowerCase() === data.title.toLowerCase()
             );
 
             if (isDuplicate) {
-                return "Task with this title already exists";
+                throw new Error("Task with this title already exists");
             }
         }
         const noChanges =
@@ -91,7 +91,7 @@ class TaskService {
             (data.priority === undefined || data.priority.toLowerCase() === existingTask.priority);
 
         if (noChanges) {
-            return "No changes made to the task";
+            throw new Error("No changes provided");
         }
 
         const updatedTask = {
@@ -103,7 +103,6 @@ class TaskService {
         };
 
         this.tasks[taskIndex] = updatedTask;
-
         return updatedTask;
     }
 
