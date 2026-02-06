@@ -14,10 +14,10 @@ class TaskService {
 
     /**
      * Create a new task.
-     * @param {Object} - Task data conatins title, description, status, priority
-     * @returns {Task} - The newly created task
-     * @throws {Error} - Throws error if a task with the same title already exists
-     **/
+     * @param {Object} data - Task data containing title, description, status, priority
+     * @returns {Object} Newly created task
+     * @throws {Error} If a task with the same title already exists
+     */
 
     createTask(data) {
         const isDuplicate = this.tasks.some(
@@ -38,10 +38,10 @@ class TaskService {
     }
 
     /**
-     * Get all tasks with filtered by status or priority
-     * @param {Object}  - Filter options status and priority
-     * @returns {Array} -  Array of tasks matching the filter
-     **/
+     * Get all tasks filtered by status and/or priority
+     * @param {Object} filters - Optional filters (status, priority)
+     * @returns {Array<Object>} List of matching tasks
+     */
 
     getAllTasks(filters = {}) {
         let result = this.tasks;
@@ -53,21 +53,18 @@ class TaskService {
         if (filters.priority) {
             result = result.filter(task => task.priority.toLowerCase() === filters.priority.toLowerCase());
         }
-        if (result.length === 0) {
-            return [];
-        }
 
         return result;
     }
 
     /**
-     * Update an existing task 
-     * @param {string} id - The ID of the task to update
-     * @param {Object} data - Task fields to update like title, description, status, priority
-     * @returns {Object} - Updated task object
-     * @throws {Error} Throws an error if task is not found
-     **/
-    
+     * Update an existing task
+     * @param {string} id - Task ID
+     * @param {Object} data - Fields to update
+     * @returns {Object} Updated task
+     * @throws {Error} If task is not found or update is invalid
+     */
+
     updateTask(id, data) {
         const taskIndex = this.tasks.findIndex(task => task.id === id);
 
@@ -111,10 +108,10 @@ class TaskService {
     }
 
     /**
-     * Get a task by id.
-     * @param {string} - ID of the task
-     * @returns {Object} The task object
-     * @throws {Error} Throws an error if task is not found
+     * Get a task by ID
+     * @param {string} id - Task ID
+     * @returns {Object} Task object
+     * @throws {Error} If task is not found
      */
 
     getTaskById(id) {
@@ -125,11 +122,11 @@ class TaskService {
         return task;
     }
 
-    /* To delete a task by id
-    * @param {string} id - The id of the task to delete
-    * @returns {void}
-    * @throws {Error} When the task is not found.
-    */
+    /**
+     * Delete a task by ID
+     * @param {string} id - Task ID
+     * @throws {Error} If task is not found
+     */
 
     deleteTask(id) {
         const initialLength = this.tasks.length;
