@@ -1,6 +1,20 @@
+// src/controllers/task.controller.js
 const taskService = require("../services/task.service");
 
+/* Controller for managing task
+*
+* @class TaskController
+*/
+
 class TaskController {
+
+    /**
+    * Create a task
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @returns {Response} - Sends JSON response with the created task or error
+    **/
+   
     createTask(req, res) {
         try {
             const task = taskService.createTask(req.body);
@@ -14,6 +28,13 @@ class TaskController {
             })
         }
     }
+
+    /** 
+    * Get all task
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @returns {Response} - Sends JSON response with list of tasks or error
+    **/
 
     getAllTasks(req, res) {
         try {
@@ -30,6 +51,14 @@ class TaskController {
             })
         }
     }
+
+    /**
+    * Update a task
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @returns {Response} - Sends JSON response with the updated task or error
+    **/
+
     updateTask(req, res) {
         try {
             const task = taskService.updateTask(req.params.id, req.body);
@@ -44,6 +73,12 @@ class TaskController {
         }
     };
 
+    /** 
+    *Get a single task
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @returns {Response} - Sends JSON response with the task or error
+    **/
 
     getSingleTask(req, res) {
         try {
@@ -60,12 +95,12 @@ class TaskController {
         }   
     }
 
-   /* To delete a task 
+   /**
+    * To delete a task 
     * @param {object} req - The request object
     * @param {object} res - The response object
-    * @returns {object} - The response object with success message or error message
-    * @throws {Error} - Throws an error if the task is not found
-    */
+    * @returns {Response} - The response object with success message or error message
+    **/
 
     deleteTask(req, res) {
         try {

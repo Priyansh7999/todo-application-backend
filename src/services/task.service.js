@@ -1,11 +1,23 @@
+// src/services/task.service.js
 const Task = require("../models/task.model");
 const { generateUUID } = require("../utils/uuid");
 
+/* Service for managing task
+*
+* @class TaskService
+*/
 
 class TaskService {
     constructor() {
         this.tasks = []; // in memory storage
     }
+
+    /**
+     * Create a new task.
+     * @param {Object} data - Task data containing title, description, status, priority
+     * @returns {Object} Newly created task
+     * @throws {Error} If a task with the same title already exists
+     */
 
     createTask(data) {
         const isDuplicate = this.tasks.some(
@@ -25,6 +37,12 @@ class TaskService {
         return task;
     }
 
+    /**
+     * Get all tasks filtered by status and/or priority
+     * @param {Object} filters - Optional filters (status, priority)
+     * @returns {Array<Object>} List of matching tasks
+     */
+
     getAllTasks(filters = {}) {
         let result = this.tasks;
 
@@ -35,12 +53,18 @@ class TaskService {
         if (filters.priority) {
             result = result.filter(task => task.priority.toLowerCase() === filters.priority.toLowerCase());
         }
-        if (result.length === 0) {
-            return [];
-        }
 
         return result;
     }
+
+    /**
+     * Update an existing task
+     * @param {string} id - Task ID
+     * @param {Object} data - Fields to update
+     * @returns {Object} Updated task
+     * @throws {Error} If task is not found or update is invalid
+     */
+
     updateTask(id, data) {
         const taskIndex = this.tasks.findIndex(task => task.id === id);
 
@@ -83,7 +107,12 @@ class TaskService {
         return updatedTask;
     }
 
-
+    /**
+     * Get a task by ID
+     * @param {string} id - Task ID
+     * @returns {Object} Task object
+     * @throws {Error} If task is not found
+     */
 
     getTaskById(id) {
         const task = this.tasks.find(task => task.id === id);
@@ -92,11 +121,12 @@ class TaskService {
         }
         return task;
     }
-    /* To delete a task by id
-    * @param {string} id - The id of the task to delete
-    * @returns {void}
-    * @throws {Error} When the task is not found.
-    */
+
+    /**
+     * Delete a task by ID
+     * @param {string} id - Task ID
+     * @throws {Error} If task is not found
+     */
 
     deleteTask(id) {
         const initialLength = this.tasks.length;
