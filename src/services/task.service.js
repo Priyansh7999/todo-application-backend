@@ -76,7 +76,7 @@ class TaskService {
         if (data.title) {
             const isDuplicate = this.tasks.some(
                 task =>
-                    task.id === id &&
+                    task.id !== id &&
                     task.title.toLowerCase() === data.title.toLowerCase()
             );
 

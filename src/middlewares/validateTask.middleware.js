@@ -30,7 +30,7 @@ function validateStatus(status, req, res) {
     return true;
   }
 
-  if (!['pending', 'in progress', 'completed'].includes(status.toLowerCase())) {
+  if (typeof status !== "string" || !['pending', 'in progress', 'completed'].includes(status.toLowerCase())) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_STATUS",
@@ -50,7 +50,7 @@ function validatePriority(priority, req, res) {
     return true;
   }
 
-  if (!['low', 'medium', 'high'].includes(priority.toLowerCase())) {
+  if (typeof priority !== "string" || !['low', 'medium', 'high'].includes(priority.toLowerCase())) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_PRIORITY",
