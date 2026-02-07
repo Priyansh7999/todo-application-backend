@@ -136,7 +136,21 @@ class TaskService {
         }
     }
 
+    /**
+     * Get all tasks filtered by status and/or priority
+     * @param {Array<Object>} tasksData - List of task data objects to create
+     * @returns {Array<Object>} List of created tasks
+     * @throws {Error} If any task data is invalid or duplicate title is found
+     */
 
+    createBulkTasks(tasksData) {
+        const createdTasks = [];
+        for (const task of tasksData) {
+            const createdTask = this.createTask(task);
+            createdTasks.push(createdTask);  
+        }
+        return createdTasks;
+    }
 }
 
 module.exports = new TaskService();
