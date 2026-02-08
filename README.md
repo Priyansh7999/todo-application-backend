@@ -22,6 +22,8 @@ The Backend App supports:
 - Node.js (v18+ recommended)
 - Postmen (for testing purpose)
 
+---
+
 ## Feature
 ### **1. Create Task**
 Allows users to create new tasks with validation
@@ -82,7 +84,40 @@ Allows users to delete a task using its task ID.
 - Returns `200 status code` on successful deletion
 - Returns `404 status code` if no task exists with the given ID
 
+### **6. Bulk Task Creation**
 
+Allows users to create multiple tasks in a single request.
+
+Endpoint : POST /v1/tasks/bulk
+- Accepts an array of task objects.
+- Each task is validated using the same rules as single task creation.
+- Default values are applied for missing fields:
+  - status defaults to pending
+  - priority defaults to low
+- Prevents saving tasks if:
+  - The request body is empty.
+  - Any task object is invalid.
+  - Duplicate task titles exist within the request.
+  - A task title already exists in stored tasks.
+
+Request Body
+```
+[
+  {
+    "title": "string (max 100)",
+    "description": "string (max 500)",
+    "status": "pending | in progress | completed",
+    "priority": "low | medium | high"
+  },
+  {
+    "title": "string (max 100)",
+    "description": "string (max 500)",
+    "status": "pending | in progress | completed",
+    "priority": "low | medium | high"
+  }
+]
+```
+---
 
 ## Non Functional Requirements
 1. Include URI versioning (/v1/tasks) 
@@ -101,6 +136,7 @@ Allows users to delete a task using its task ID.
 }
 ```
 
+---
 
 ## How to run
 
@@ -128,5 +164,3 @@ node src/server.js
 ```code
 http://localhost:3000
 ```
-
----
