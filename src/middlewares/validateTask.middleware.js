@@ -3,19 +3,20 @@ function validateTitle(title, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_TITLE",
-        message: "Title is required and max 100 characters"
+        message: "Title is required and must be atmost 100 characters"
       }
     });
     return false;
   }
   return true;
 }
+
 function validateDescription(description, res) {
   if (!description || typeof description !== 'string' || description.trim().length === 0 || description.trim().length > 500) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_DESCRIPTION",
-        message: "Description is required and max 500 characters"
+        message: "Description is required and must be atmost 500 characters"
       }
     });
     return false;
@@ -29,11 +30,11 @@ function validateStatus(status, req, res) {
     return true;
   }
 
-  if (!['pending', 'in progress', 'completed'].includes(status.toLowerCase())) {
+  if (typeof status !== "string" || !['pending', 'in progress', 'completed'].includes(status.toLowerCase())) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_STATUS",
-        message: "Invalid status"
+        message: "Invalid task status. Status must be one of: pending, in progress, or completed."
       }
     });
     return false;
@@ -49,11 +50,11 @@ function validatePriority(priority, req, res) {
     return true;
   }
 
-  if (!['low', 'medium', 'high'].includes(priority.toLowerCase())) {
+  if (typeof priority !== "string" || !['low', 'medium', 'high'].includes(priority.toLowerCase())) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_PRIORITY",
-        message: "Invalid priority"
+        message: "Invalid task priority. Priority must be one of: low, medium, or high."
       }
     });
     return false;
@@ -73,6 +74,7 @@ function validateCreateTask(req, res, next) {
 
   next();
 }
+
 function validateUpdateTask(req, res, next) {
   const { id, title, description, status, priority, createdAt, updatedAt } = req.body;
   if(!id && !title && !description && !status && !priority){
@@ -99,6 +101,7 @@ function validateUpdateTask(req, res, next) {
 
   next();
 }
+
 module.exports = {
   validateCreateTask,
   validateUpdateTask
