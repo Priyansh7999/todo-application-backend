@@ -3,7 +3,7 @@ function validateTitle(title, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_TITLE",
-        message: "Title is required and must be under 100 characters"
+        message: "Title is required and must be atmost 100 characters"
       }
     });
     return false;
@@ -16,7 +16,7 @@ function validateDescription(description, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_DESCRIPTION",
-        message: "Description is required and must be under 500 characters"
+        message: "Description is required and must be atmost 500 characters"
       }
     });
     return false;
@@ -34,7 +34,7 @@ function validateStatus(status, req, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_STATUS",
-        message: "Invalid status value"
+        message: "Invalid task status. Status must be one of: pending, in progress, or completed."
       }
     });
     return false;
@@ -54,7 +54,7 @@ function validatePriority(priority, req, res) {
     res.status(400).json({
       error: {
         code: "INVALID_TASK_PRIORITY",
-        message: "Invalid priority value"
+        message: "Invalid task priority. Priority must be one of: low, medium, or high."
       }
     });
     return false;
