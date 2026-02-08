@@ -136,15 +136,33 @@ class TaskService {
     }
 
     /**
+     * @param {Array<Object>} bulkTasks - List of task objects to check for duplicate titles
+     * @throws {Error} If any duplicate title is found
+     */
+
+    checkBulkTitleDuplicates(bulkTasks) {
+        const uniqueTitle = new Set();
+
+        for (const task of bulkTasks) {
+            const title = task.title.toLowerCase();
+            if (uniqueTitle.has(title)) {
+                throw new Error(`Duplicate title found: ${task.title}`);
+            }
+            uniqueTitle.add(title);
+        }
+    }
+
+    /**
      * Get all tasks filtered by status and/or priority
      * @param {Array<Object>} tasksData - List of task data objects to create
      * @returns {Array<Object>} List of created tasks
      * @throws {Error} If any task data is invalid or duplicate title is found
      */
 
-    createBulkTasks(tasksData) {
+    createBulkTasks(bulkTasks) {
+        this.checkBulkTitleDuplicates(bulkTasks);
         const createdTasks = [];
-        for (const task of tasksData) {
+        for (const task of bulkTasks) {
             const createdTask = this.createTask(task);
             createdTasks.push(createdTask);  
         }
