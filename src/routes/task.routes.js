@@ -24,4 +24,8 @@ router.get("/:id", taskController.getSingleTask);
 
 //delete a task
 router.delete("/:id",taskController.deleteTask);
+
+// bulk delete tasks
+router.post("/bulk-delete", validateTask.validateBulkDelete, taskController.bulkDeleteTasks);
+
 module.exports = router;
