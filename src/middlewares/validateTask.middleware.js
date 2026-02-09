@@ -102,7 +102,40 @@ function validateUpdateTask(req, res, next) {
   next();
 }
 
+function validateBulkTasks(req, res, next) {
+  const tasks = req.body;
+
+  if (tasks.length === 0) {
+    return res.status(400).json({
+      error: {
+        code: "INVALID_TASKS_ARRAY",
+        message: "Tasks array cannot be empty"
+      }
+    });
+  }
+
+  for (const task of tasks) {
+    if (task === null) {
+      return res.status(400).json({
+        error: {
+          code: "INVALID_TASK_OBJECT",
+          message: "Task object cannot be null"
+        }
+      });
+    }
+
+    const { title, description, status, priority } = task;
+
+    if (!validateTitle(title, res)) return;
+    if (!validateDescription(description, res)) return;
+    if (!validateStatus(status, req, res)) return;
+    if (!validatePriority(priority, req, res)) return;
+  }
+  next();
+}
+
 module.exports = {
   validateCreateTask,
-  validateUpdateTask
+  validateUpdateTask,
+  validateBulkTasks,
 }

@@ -23,5 +23,8 @@ router.patch("/:id", validateTask.validateUpdateTask, taskController.updateTask)
 router.get("/:id", taskController.getSingleTask);
 
 //delete a task
-router.delete("/:id",taskController.deleteTask);
+router.delete("/:id", taskController.deleteTask);
+
+// create bulk tasks
+router.post("/bulk", validateTask.validateBulkTasks, taskController.createBulkTasks);
 module.exports = router;

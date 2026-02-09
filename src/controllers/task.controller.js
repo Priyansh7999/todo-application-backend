@@ -14,7 +14,7 @@ class TaskController {
     * @param {object} res - The response object
     * @returns {Response} - Sends JSON response with the created task or error
     **/
-   
+
     createTask(req, res) {
         try {
             const task = taskService.createTask(req.body);
@@ -90,15 +90,15 @@ class TaskController {
                     "message": error.message
                 }
             })
-        }   
+        }
     }
 
-   /**
-    * To delete a task 
-    * @param {object} req - The request object
-    * @param {object} res - The response object
-    * @returns {Response} - The response object with success message or error message
-    **/
+    /**
+     * To delete a task 
+     * @param {object} req - The request object
+     * @param {object} res - The response object
+     * @returns {Response} - The response object with success message or error message
+     **/
 
     deleteTask(req, res) {
         try {
@@ -116,7 +116,27 @@ class TaskController {
             })
         }
     }
-}
 
+    /**
+     * To create bulk tasks
+     * @param {object} req - The request object
+     * @param {object} res - The response object
+     * @returns {Response} - The response object with list of created tasks or error message
+     **/
+
+    createBulkTasks(req, res) {
+        try {
+            const tasks = taskService.createBulkTasks(req.body);
+            res.status(201).json(tasks);
+        } catch (error) {
+            res.status(400).json({
+                "error": {
+                    "code": "INVALID_TASK_DATA",
+                    "message": error.message
+                }
+            })
+        }
+    }
+}
 
 module.exports = new TaskController();
