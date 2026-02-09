@@ -1,6 +1,7 @@
 // src/services/task.service.js
 const Task = require("../models/task.model");
 const { generateUUID } = require("../utils/uuid");
+const taskRepository = require("../repository/task.repository");
 
 /* Service for managing task
 *
@@ -34,16 +35,18 @@ class TaskService {
      * @throws {Error} If a task with the same title already exists
      */
 
-    createTask(data) {
-        this.checkUniqueTitle(data.title);
+    async createTask(data) {
+        const existingTask = await taskRepository.findTaskByTitle(data.title);
+        if (existingTask) {
+            throw new Error(`Task with the title '${data.title}' already exists`);
+        }
 
         const task = new Task({
             id: generateUUID(),
             ...data
         });
 
-        this.tasks.push(task);
-        return task;
+        return await taskRepository.createTask(task);
     }
 
     /**
