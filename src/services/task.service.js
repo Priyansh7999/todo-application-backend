@@ -13,6 +13,21 @@ class TaskService {
     }
 
     /**
+     * Check if a task title is unique
+     * @param {string} title - Title to check
+     * @param {string|null} id - Optional task ID to exclude from check (for updates)
+     * @throws {Error} If a task with the same title already exists
+     */
+
+    checkUniqueTitle(title, id = null) {
+        const titleExists = this.tasks.some(task => task.title.toLowerCase() === title.toLowerCase() && task.id !== id);
+
+        if (titleExists) {
+            throw new Error(`Task with the title '${title}' already exists`);
+        }
+    }
+
+    /**
      * Create a new task.
      * @param {Object} data - Task data containing title, description, status, priority
      * @returns {Object} Newly created task
@@ -20,13 +35,7 @@ class TaskService {
      */
 
     createTask(data) {
-        const isDuplicate = this.tasks.some(
-            task => task.title.toLowerCase() === data.title.toLowerCase()
-        );
-
-        if (isDuplicate) {
-            throw new Error("Task with this title already exists");
-        }
+        this.checkUniqueTitle(data.title);
 
         const task = new Task({
             id: generateUUID(),
@@ -71,19 +80,9 @@ class TaskService {
         if (taskIndex === -1) {
             throw new Error("Task not found");
         }
+        this.checkUniqueTitle(data.title, id);
 
         const existingTask = this.tasks[taskIndex];
-        if (data.title) {
-            const isDuplicate = this.tasks.some(
-                task =>
-                    task.id !== id &&
-                    task.title.toLowerCase() === data.title.toLowerCase()
-            );
-
-            if (isDuplicate) {
-                throw new Error("Task with this title already exists");
-            }
-        }
         const noChanges =
             (data.title === undefined || data.title === existingTask.title) &&
             (data.description === undefined || data.description === existingTask.description) &&
@@ -150,6 +149,39 @@ class TaskService {
         }
 
         this.tasks = this.tasks.filter(task => !taskIds.includes(task.id));
+    }
+    /**
+     * @param {Array<Object>} bulkTasks - List of task objects to check for duplicate titles
+     * @throws {Error} If any duplicate title is found
+     */
+
+    checkBulkTitleDuplicates(bulkTasks) {
+        const uniqueTitle = new Set();
+
+        for (const task of bulkTasks) {
+            const title = task.title.toLowerCase();
+            if (uniqueTitle.has(title)) {
+                throw new Error(`Duplicate title found: ${task.title}`);
+            }
+            uniqueTitle.add(title);
+        }
+    }
+
+    /**
+     * Get all tasks filtered by status and/or priority
+     * @param {Array<Object>} tasksData - List of task data objects to create
+     * @returns {Array<Object>} List of created tasks
+     * @throws {Error} If any task data is invalid or duplicate title is found
+     */
+
+    createBulkTasks(bulkTasks) {
+        this.checkBulkTitleDuplicates(bulkTasks);
+        const createdTasks = [];
+        for (const task of bulkTasks) {
+            const createdTask = this.createTask(task);
+            createdTasks.push(createdTask);  
+        }
+        return createdTasks;
     }
 }
 

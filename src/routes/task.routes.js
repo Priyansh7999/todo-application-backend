@@ -28,4 +28,6 @@ router.delete("/:id",taskController.deleteTask);
 // bulk delete tasks
 router.post("/bulk-delete", validateTask.validateBulkDelete, taskController.bulkDeleteTasks);
 
+// create bulk tasks
+router.post("/bulk", validateTask.validateBulkTasks, taskController.createBulkTasks);
 module.exports = router;
