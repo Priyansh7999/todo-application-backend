@@ -15,9 +15,9 @@ class TaskController {
     * @returns {Response} - Sends JSON response with the created task or error
     **/
 
-    createTask(req, res) {
+    async createTask(req, res) {
         try {
-            const task = taskService.createTask(req.body);
+            const task = await taskService.createTask(req.body);
             res.status(201).json(task);
         } catch (error) {
             res.status(400).json({
