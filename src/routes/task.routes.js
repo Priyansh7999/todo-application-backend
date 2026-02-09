@@ -23,7 +23,10 @@ router.patch("/:id", validateTask.validateUpdateTask, taskController.updateTask)
 router.get("/:id", taskController.getSingleTask);
 
 //delete a task
-router.delete("/:id", taskController.deleteTask);
+router.delete("/:id",taskController.deleteTask);
+
+// bulk delete tasks
+router.post("/bulk-delete", validateTask.validateBulkDelete, taskController.bulkDeleteTasks);
 
 // create bulk tasks
 router.post("/bulk", validateTask.validateBulkTasks, taskController.createBulkTasks);
