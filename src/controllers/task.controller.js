@@ -116,6 +116,30 @@ class TaskController {
             })
         }
     }
+
+    /**
+     * Bulk delete tasks
+     * @param {object} req - The request object
+     * @param {object} res - The response object
+     * @returns {Response} - The response object with success message or error message
+     */
+    bulkDeleteTasks(req, res) {
+        try {
+            const { ids } = req.body;
+            taskService.bulkDeleteTasks(ids);
+            res.status(200).json({
+                "success": true,
+                "message": "Tasks deleted successfully"
+            });
+        } catch (error) {
+            res.status(400).json({
+                "error": {
+                    "code": "BULK_TASK_DELETE_FAILED",
+                    "message": error.message
+                }
+            })
+        }
+    }
 }
 
 
