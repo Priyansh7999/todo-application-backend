@@ -136,7 +136,21 @@ class TaskService {
         }
     }
 
+    /**
+     * Bulk delete tasks by IDs
+     * @param {Array<string>} taskIds - List of task IDs to delete
+     * @throws {Error} If any task ID is not found
+     */
+    bulkDeleteTasks(taskIds) {
+        for (const id of taskIds) {
+            const idExists = this.tasks.some(task => task.id === id);
+            if (!idExists) {
+                throw new Error(`Task with ID ${id} not found`);
+            }
+        }
 
+        this.tasks = this.tasks.filter(task => !taskIds.includes(task.id));
+    }
 }
 
 module.exports = new TaskService();
