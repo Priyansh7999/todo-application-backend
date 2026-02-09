@@ -102,7 +102,21 @@ function validateUpdateTask(req, res, next) {
   next();
 }
 
+function validateBulkDelete(req, res, next) {
+  const { ids } = req.body;
+  if (!ids || !Array.isArray(ids) || ids.length === 0) {
+    return res.status(400).json({
+      error: {
+        code: "INVALID_IDS_ARRAY",
+        message: "Invalid or missing IDs array"
+      }
+    });
+  }
+  next();
+}
+
 module.exports = {
   validateCreateTask,
-  validateUpdateTask
+  validateUpdateTask,
+  validateBulkDelete
 }
